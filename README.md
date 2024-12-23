@@ -60,7 +60,17 @@ Exemplo de uma entrada no arquivo JSONL:
 {"id": 1, "artist_name": "Nome do Artista", "albums": [{"album_name": "Nome do Álbum", "tracks": [{"track_number": "1", "track_title": "Nome da Faixa"}]}]}
 
 
-### Executando no Google Colab
+
+
+
+
+
+
+
+
+
+
+# Executando no Google Colab
 
 Se preferir executar os scripts diretamente no Google Colab, siga os passos abaixo:
 
