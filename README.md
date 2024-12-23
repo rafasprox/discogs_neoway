@@ -1,5 +1,8 @@
 # Discogs Data Fetcher
 
+O método de obter dados foi realizado via API oficial pois a empresa nao aceita realizacao de scrapping de seu site, conforme: (https://www.discogs.com/forum/thread/347875)
+Screen scraping our site is not allowed and is a good way to get your IP banned. We do have an API that you can use, please see http://www.discogs.com/developers/ for more information.
+
 Este repositório contém scripts para coletar dados de artistas, álbuns e faixas do Discogs utilizando a API oficial. Ele também inclui testes unitários para validar as funcionalidades principais.
 
 ## 📋 Pré-requisitos
