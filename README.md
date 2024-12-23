@@ -102,16 +102,6 @@ Exemplo de uma entrada no arquivo JSONL:
 
 {"id": 1, "artist_name": "Nome do Artista", "albums": [{"album_name": "Nome do Álbum", "tracks": [{"track_number": "1", "track_title": "Nome da Faixa"}]}]}
 
-
-## 🛠️ Contribuição
-
-Sinta-se à vontade para contribuir com melhorias ou correções:
-
-1. Faça um fork deste repositório.
-2. Crie uma branch para sua funcionalidade ou correção: `git checkout -b minha-feature`.
-3. Envie suas alterações: `git push origin minha-feature`.
-4. Abra um pull request detalhando suas alterações.
-
 ---
 
 Se tiver dúvidas ou problemas, consulte a [documentação oficial da API Discogs](https://www.discogs.com/developers/) ou entre em contato com o mantenedor do projeto.
