@@ -58,3 +58,61 @@ Os dados coletados serão salvos no formato JSONL (JSON Lines), onde cada linha 
 Exemplo de uma entrada no arquivo JSONL:
 
 {"id": 1, "artist_name": "Nome do Artista", "albums": [{"album_name": "Nome do Álbum", "tracks": [{"track_number": "1", "track_title": "Nome da Faixa"}]}]}
+
+
+### Executando no Google Colab
+
+Se preferir executar os scripts diretamente no Google Colab, siga os passos abaixo:
+
+1. **Acesse os scripts no Google Drive**:
+   - [Script principal](https://drive.google.com/drive/folders/1zrGlDpWRleUcdfGxwuXhSZ_ypWH713rX?usp=sharing)
+   - [Script de testes](https://drive.google.com/drive/folders/1NxVoFLBt3W_lR3uKUm5W4JiIx8XFQjsy?usp=drive_link)
+
+2. **Monte o Google Drive no Colab**:
+   Adicione o seguinte código no início da célula do notebook para montar seu Google Drive:
+
+3. **Navegue até os arquivos**:
+Após montar o Drive, localize os arquivos no diretório correspondente. Por exemplo:
+
+
+4. **Instale as dependências necessárias**:
+Execute o comando abaixo para instalar a biblioteca `discogs-client`:
+
+
+5. **Execute o script principal**:
+Após navegar até o diretório correto, execute o script principal diretamente no notebook:
+
+
+6. **Execute os testes unitários**:
+Para rodar os testes, execute o script de testes da mesma forma:
+
+
+---
+
+## 📂 Estrutura do Projeto
+
+- **discogs_get_data.py**: Script principal para coletar dados da API Discogs.
+- **tests.py**: Arquivo contendo testes unitários para validar as funções principais.
+
+## 📝 Saída dos Dados
+
+Os dados coletados serão salvos no formato JSONL (JSON Lines), onde cada linha representa um registro individual. O arquivo padrão é `output.jsonl`, mas você pode especificar outro nome alterando a chamada da função `save_to_jsonl`.
+
+Exemplo de uma entrada no arquivo JSONL:
+
+{"id": 1, "artist_name": "Nome do Artista", "albums": [{"album_name": "Nome do Álbum", "tracks": [{"track_number": "1", "track_title": "Nome da Faixa"}]}]}
+
+
+## 🛠️ Contribuição
+
+Sinta-se à vontade para contribuir com melhorias ou correções:
+
+1. Faça um fork deste repositório.
+2. Crie uma branch para sua funcionalidade ou correção: `git checkout -b minha-feature`.
+3. Envie suas alterações: `git push origin minha-feature`.
+4. Abra um pull request detalhando suas alterações.
+
+---
+
+Se tiver dúvidas ou problemas, consulte a [documentação oficial da API Discogs](https://www.discogs.com/developers/) ou entre em contato com o mantenedor do projeto.
+
