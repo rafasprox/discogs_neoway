@@ -58,7 +58,7 @@ Os testes verificam:
 Os dados coletados serão salvos no formato JSONL (JSON Lines), onde cada linha representa um registro individual. O arquivo padrão é `output.jsonl`, mas você pode especificar outro nome alterando a chamada da função `save_to_jsonl`.
 
 Exemplo de uma entrada no arquivo JSONL:
-
+{"id": 1, "artist_name": "Nome do Artista", "albums": [{"album_name": "Nome do Álbum", "tracks": [{"track_number": "1", "track_title": "Nome da Faixa"}]}]}
 
 ---
 
