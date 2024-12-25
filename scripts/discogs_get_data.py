@@ -11,17 +11,24 @@ client = Client(USER_AGENT, user_token=TOKEN)
 def fetch_data(genre, max_artists=10, max_albums=10):
     data = []
     artists_collected = set()
-    current_page = 1  # pagina inicial
+    current_page = 1  # Página inicial
+    total_pages = None  # Total de páginas será obtido na primeira requisição
 
     try:
         while len(artists_collected) < max_artists:
-            print(f"Buscando na pagina {current_page}...")
+            print(f"Buscando na página {current_page}...")
 
-            #filtrando por gênero e formato "Album"
-            search_results = client.search(genre=genre, format='Album').page(current_page)
+            # Filtrando por gênero e formato "Album"
+            search_results = client.search(genre=genre, format='Album', page=current_page)
 
-            if not search_results:  # Se não houver mais resultados
-                print("Nenhum resultado encontrado em mais paginas.")
+            # Obter total de páginas na primeira iteração
+            if total_pages is None:
+                total_pages = search_results.pages
+                print(f"Total de páginas disponíveis: {total_pages}")
+
+            # Se não houver mais resultados ou já alcançamos a última página
+            if not search_results or current_page > total_pages:
+                print("Nenhum resultado encontrado em mais páginas.")
                 break
 
             for release in search_results:
@@ -29,7 +36,7 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                     break
 
                 # Verificar se o lançamento tem artistas associados
-                if not hasattr(release, 'artists') or not release.artists:
+                if not hasattr(release, 'artists'):
                     continue
 
                 artist = release.artists[0]  # Primeiro artista associado ao lançamento
@@ -66,13 +73,14 @@ def fetch_data(genre, max_artists=10, max_albums=10):
 
     return data
 
+
 def collect_album_data(release):
-    """Coleta dados de um album (MasterRelease ou Release simples)."""
+    """Coleta dados de um álbum (MasterRelease ou Release simples)."""
     try:
         if hasattr(release, 'main_release'):  # Verifica se é MasterRelease
             master_release = client.master(release.id)
             album_name_normalized = normalize_text(master_release.title)
-            print(f"Coletando album (Master Release): {album_name_normalized}")
+            print(f"Coletando álbum (Master Release): {album_name_normalized}")
             return {
                 "album_name": album_name_normalized,
                 "album_release_year": master_release.year,
@@ -89,7 +97,7 @@ def collect_album_data(release):
             }
         elif hasattr(release, 'artists'):  # Caso seja um Release simples com artistas
             album_name_normalized = normalize_text(release.title)
-            print(f"Coletando album (Release): {album_name_normalized}")
+            print(f"Coletando álbum (Release): {album_name_normalized}")
             return {
                 "album_name": album_name_normalized,
                 "album_release_year": release.year,
@@ -105,11 +113,12 @@ def collect_album_data(release):
                 ]
             }
         else:
-            print("Lançamento ignorado: Nao e um album valido.")
+            print("Lançamento ignorado: Não é um álbum válido.")
             return None
     except Exception as e:
-        print(f"Erro ao coletar dados do album: {e}")
+        print(f"Erro ao coletar dados do álbum: {e}")
         return None
+
 
 def normalize_text(text):
     """Normaliza um texto removendo caracteres especiais e acentos."""
@@ -125,10 +134,11 @@ def normalize_text(text):
         print(f"Erro ao normalizar texto: {e}")
         return text  # Retorna o texto original em caso de erro
 
+
 def save_to_jsonl(data, filename="output.jsonl"):
     """Salva os dados em um arquivo JSONL."""
     if not data:
-        print("Nenhum dado disponivel para salvar.")
+        print("Nenhum dado disponível para salvar.")
         return
 
     try:
@@ -138,9 +148,10 @@ def save_to_jsonl(data, filename="output.jsonl"):
     except Exception as e:
         print(f"Erro ao salvar os dados: {e}")
 
+
 # Testar coleta e salvamento
 if __name__ == "__main__":
-    GENRE = "Rock"
+    GENRE = "Jazz"
     data = fetch_data(GENRE)
 
     if data:
