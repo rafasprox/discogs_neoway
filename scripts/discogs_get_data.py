@@ -47,29 +47,35 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                 artist_name_normalized = normalize_text(artist.name)
                 print(f"Coletando dados do artista: {artist_name_normalized}")
 
-                # Dados básicos do artista
-                artist_data = {
-                    "id": artist.id,
-                    "genre": genre,
-                    "artist_name": artist_name_normalized,
-                    "artist_members": [normalize_text(member.name) for member in getattr(artist, 'members', [])],
-                    "artist_websites": getattr(artist, 'urls', []),
-                    "albums": []
-                }
+                try:
+                    # Dados básicos do artista
+                    artist_data = {
+                        "id": artist.id,
+                        "genre": genre,
+                        "artist_name": artist_name_normalized,
+                        "artist_members": [normalize_text(member.name) for member in getattr(artist, 'members', [])],
+                        "artist_websites": getattr(artist, 'urls', []),
+                        "albums": []
+                    }
 
-                # Coletar álbuns do artista (limitado a max_albums)
-                releases = client.artist(artist.id).releases.page(1)[:max_albums]
-                for release in releases:
-                    album_data = collect_album_data(release)
-                    if album_data:
-                        artist_data["albums"].append(album_data)
+                    # Coletar álbuns do artista (limitado a max_albums)
+                    releases = client.artist(artist.id).releases.page(1)[:max_albums]
+                    for release in releases:
+                        album_data = collect_album_data(release)
+                        if album_data:
+                            artist_data["albums"].append(album_data)
 
-                data.append(artist_data)
+                    data.append(artist_data)
+
+                except Exception as e:
+                    # Captura erros específicos ao buscar dados do artista
+                    print(f"Erro ao buscar dados do artista {artist_name_normalized}: {e}")
+                    continue  # Ignora este artista e prossegue com o próximo
 
             current_page += 1  # Avança para a próxima página
 
     except Exception as e:
-        print(f"Erro ao buscar dados: {e}")
+        print(f"Erro geral ao buscar dados: {e}")
 
     return data
 
