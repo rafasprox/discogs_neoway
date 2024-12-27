@@ -32,7 +32,7 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                 break
 
             for release in search_results:
-                if len(artists_collected) >= max_artists:
+                if len(artists_collected) >= max_artists: 
                     break
 
                 # Verificar se o lançamento tem artistas associados
@@ -43,7 +43,6 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                 if artist.id in artists_collected:
                     continue
 
-                artists_collected.add(artist.id)
                 artist_name_normalized = normalize_text(artist.name)
                 print(f"Coletando dados do artista: {artist_name_normalized}")
 
@@ -66,6 +65,8 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                             artist_data["albums"].append(album_data)
 
                     data.append(artist_data)
+
+                    artists_collected.add(artist.id)
 
                 except Exception as e:
                     # Captura erros específicos ao buscar dados do artista
