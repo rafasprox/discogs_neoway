@@ -32,7 +32,7 @@ def fetch_data(genre, max_artists=10, max_albums=10):
                 break
 
             for release in search_results:
-                if len(artists_collected) >= max_artists:
+                if len(artists_collected) >= max_artists: 
                     break
 
                 # Verificar se o lançamento tem artistas associados
